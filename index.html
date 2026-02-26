@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>InSTART | Твой экспертный наставник Диана | Светлый Объем</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            /* Обновленная светлая премиальная палитра */
+            --bg-deep: #f0f4f8; /* Мягкий светлый фон основания */
+            --bg-glass: rgba(255, 255, 255, 0.7); /* Белое матовое стекло */
+            --primary-grad: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            --accent-grad: linear-gradient(135deg, #ff007a 0%, #ff4081 100%);
+            --white: #ffffff;
+            --text-main: #2d3436; /* Темный текст для контраста */
+            --text-muted: #636e72; /* Мутный текст */
+            --border-glass: rgba(255, 255, 255, 0.5); /* Светлая граница */
+            --shadow-complex: 0 20px 40px rgba(0,0,0,0.05), 0 10px 15px rgba(0,0,0,0.03); /* Мягкие глубокие тени */
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * { box-sizing: border-box; outline: none; }
+
+        body {
+            font-family: var(--font);
+            margin: 0; background-color: var(--bg-deep); color: var(--text-main);
+            overflow-x: hidden; scroll-behavior: smooth;
+            line-height: 1.6;
+            /* Динамический светлый фон с глубиной */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 168, 255, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 122, 0.08) 0%, transparent 30%);
+        }
+
+        /* Декоративные плавающие блики для глубины (светлые) */
+        body::before, body::after {
+            content: ''; position: fixed; border-radius: 50%; z-index: -1; filter: blur(60px); opacity: 0.6;
+        }
+        body::before { width: 400px; height: 400px; background: #cceeff; top: -10%; left: -150px; animation: float 18s infinite ease-in-out; }
+        body::after { width: 300px; height: 300px; background: #ffe0f0; bottom: -10%; right: -100px; animation: float 22s infinite ease-in-out-reverse; }
+
+        @keyframes float { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-40px) scale(1.05); } }
+        @keyframes float-reverse { 0%, 100% { transform: translateY(0) scale(1.05); } 50% { transform: translateY(40px) scale(1); } }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 25px; }
+
+        /* Шапка: Парящее белое стекло */
+        header {
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            padding: 15px 0; position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid var(--border-glass);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.03);
+        }
+        .header-content { display: flex; align-items: center; justify-content: space-between; }
+        .logo-block { display: flex; align-items: center; gap: 12px; }
+        .logo-img { width: 55px; height: 55px; border-radius: 50%; border: 3px solid var(--white); padding: 0px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); object-fit: cover; }
+        .logo-text { font-weight: 900; font-size: 1.2rem; text-transform: uppercase; color: var(--text-main); letter-spacing: 1px; }
+
+        /* Главная секция (Hero) */
+        .hero {
+            padding: 120px 0 160px; text-align: center; position: relative;
+        }
+        .hero h1 {
+            font-size: 3.2rem; margin: 0 0 25px; font-weight: 900; line-height: 1.1;
+            background: var(--primary-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0,114,255,0.1);
+        }
+        .hero p { font-size: 1.3rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 55px; }
+
+        /* Стеклянные панели (Белое матовое стекло с глубокой тенью) */
+        .glass-panel {
+            background: var(--bg-glass);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border-glass);
+            border-radius: 35px;
+            box-shadow: var(--shadow-complex);
+            padding: 60px;
+            margin-bottom: 60px;
+            position: relative;
+            transform-style: preserve-3d; /* Для 3D-эффекта при наведении */
+            transition: transform 0.1s ease-out, box-shadow 0.3s; /* Плавный возврат и тень */
+        }
+        .glass-panel:hover { box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+
+        /* Видео-блок (Приподнятый над белым стеклом) */
+        .video-anchor { margin-top: -120px; position: relative; z-index: 10; transform: translateZ(30px); } /* Усиленный translateZ */
+        .video-inner { padding: 12px; background: rgba(255,255,255,0.5); border-radius: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.8); }
+        .video-cover {
+            width: 100%; padding-bottom: 56.25%; border-radius: 25px;
+            background: url('https://img.youtube.com/vi/rW_2DQuY14Y/maxresdefault.jpg') center/cover;
+            position: relative; cursor: pointer; display: block; overflow: hidden;
+            border: 2px solid var(--white);
+        }
+        .video-cover::before {
+            content: '▶'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 95px; height: 95px; background: var(--accent-grad); color: white;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 2.6rem; box-shadow: 0 0 45px rgba(255,0,122,0.6); transition: 0.3s;
+        }
+        .video-cover:hover::before { transform: translate(-50%, -50%) scale(1.1) rotate(15deg); }
+
+        /* Заголовки секций (Светлый градиент) */
+        .section-title {
+            text-align: center; font-size: 2.5rem; font-weight: 800; margin: 0 0 50px;
+            text-transform: uppercase; letter-spacing: 2px;
+            background: linear-gradient(to bottom, #2d3436, #636e72); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* Список профессий (Светлый объем) */
+        .professions-list { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 40px; }
+        .prof-item {
+            background: rgba(255,255,255,0.6); padding: 25px 30px; border-radius: 25px;
+            font-weight: 700; display: flex; align-items: center; gap: 18px;
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            color: var(--primary); font-size: 1.05rem;
+        }
+        .prof-item::before { content: '✓'; color: var(--accent); font-weight: 900; font-size: 1.2rem; }
+
+        /* Фото-сетки (Светлые объемные карточки) */
+        .grid { display: grid; gap: 20px; margin: 40px 0; }
+        .tariff-grid { grid-template-columns: repeat(3, 1fr); }
+        .review-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
+
+        .img-card {
+            border-radius: 25px; overflow: hidden;
+            cursor: zoom-in; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 4px solid var(--white);
+            position: relative;
+        }
+        .img-card:hover { transform: translateY(-15px) rotate(2deg) scale(1.03); box-shadow: 0 25px 50px rgba(0,0,0,0.15); border-color: var(--white); }
+        .img-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, transparent 70%, rgba(0,0,0,0.2)); }
+        img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        /* Кнопки: Светлый объем и свечение */
+        .btn-wrapper { text-align: center; margin: 50px 0; }
+        .btn-main {
+            background: var(--primary-grad); color: white; padding: 22px 50px;
+            text-decoration: none; border-radius: 100px; font-weight: 800; font-size: 1.15rem;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            display: inline-block; transition: 0.3s;
+            box-shadow: 0 12px 30px rgba(0, 114, 255, 0.35);
+            position: relative; overflow: hidden; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .btn-main::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: 0.6s; }
+        .btn-main:hover { box-shadow: 0 18px 45px rgba(0, 114, 255, 0.55); transform: translateY(-5px); }
+        .btn-main:hover::before { left: 100%; }
+
+        .btn-accent { background: var(--accent-grad); box-shadow: 0 12px 30px rgba(255, 0, 122, 0.35); }
+        .btn-accent:hover { box-shadow: 0 18px 45px rgba(255, 0, 122, 0.55); }
+
+        /* FAQ: Светлый скрытый объем */
+        .faq-box { margin: 40px 0; }
+        .faq-item { background: rgba(255,255,255,0.5); border-radius: 20px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.8); overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
+        .faq-trigger { 
+            width: 100%; padding: 25px; background: none; border: none;
+            color: var(--text-main); font-weight: 700; text-align: left; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center; font-size: 1.15rem;
+        }
+        .faq-trigger span { font-size: 1.5rem; transition: 0.3s; color: var(--primary); font-weight: 900; }
+        .faq-item.active .faq-trigger span { transform: rotate(45deg); color: var(--accent); }
+        .faq-body { padding: 0 25px 25px; color: var(--text-muted); display: none; border-top: 1px solid rgba(255,255,255,0.8); padding-top: 25px; font-size: 1.05rem; }
+
+        /* Подвал: Светлое глубокое погружение */
+        footer {
+            background: #ffffff; border-top: 1px solid rgba(0,0,0,0.05);
+            padding: 80px 0; text-align: center; color: var(--text-muted); font-size: 0.95rem;
+            position: relative; box-shadow: 0 -10px 30px rgba(0,0,0,0.02);
+        }
+        footer b { color: var(--text-main); font-weight: 800; }
+
+        /* Модалка: Светлый реальный 3D фокус */
+        .modal {
+            display: none; position: fixed; z-index: 10000; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(240, 244, 248, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 0.4s;
+        }
+        .modal.open { display: flex; opacity: 1; }
+        .modal img { 
+            max-width: 90%; max-height: 85%; border-radius: 25px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+            border: 8px solid var(--white); transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal.open img { transform: scale(1); }
+
+        /* Адаптивность для мобильных */
+        @media (max-width: 650px) {
+            .hero h1 { font-size: 2.2rem; }
+            .section-title { font-size: 2rem; }
+            .professions-list { grid-template-columns: 1fr; }
+            .tariff-grid { grid-template-columns: repeat(2, 1fr); }
+            .review-grid { grid-template-columns: repeat(3, 1fr); }
+            .glass-panel { padding: 40px 25px; border-radius: 25px; }
+            .logo-text { display: none; }
+            .hero { padding: 100px 0 140px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container header-content animate__animated animate__fadeInDown">
+        <div class="logo-block">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=200&h=200" alt="Диана" class="logo-img">
+            <div class="logo-text">DIANA | INSTART</div>
+        </div>
+        <a href="https://t.me/DianaK_InSTART" class="btn-main" style="padding: 12px 25px; font-size: 0.95rem; letter-spacing: 1px;">Связаться</a>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container" data-aos="fade-up">
+        <h1>Твой выход в онлайн</h1>
+        <p>InSTART — это не просто курсы, это твоя полноценная экосистема для быстрого, объемного и уверенного старта в мире удаленных профессий.</p>
+        <a href="https://t.me/DianaK_InSTART" class="btn-main btn-accent animate__animated animate__pulse animate__infinite">Начать путь к свободе</a>
+    </div>
+</section>
+
+<div class="container">
+    
+    <div class="video-anchor glass-panel" data-aos="zoom-in-up" data-tilt>
+        <div class="video-inner">
+            <a href="https://www.youtube.com/watch?v=rW_2DQuY14Y" target="_blank" class="video-cover"></a>
+        </div>
+        <p style="text-align: center; margin-top: 25px; font-weight: 800; color: var(--text-main); font-size: 1.1rem;">
+            Нажми, чтобы погрузиться в мир InSTART за 5 минут →
+        </p>
+    </div>
+
+    <div class="glass-panel" data-aos="fade-up" data-tilt>
+        <h2 class="section-title">Что такое Экосистема InSTART?</h2>
+        <p>Мы создали пространство, где каждый новичок, независимо от опыта, может получить востребованные навыки и начать зарабатывать. Наша платформа объединяет теорию от практиков, закрытое комьюнити и постоянные обновления.</p>
+        
+        <p>🌈 <b>Постоянное развитие:</b> Направления регулярно обновляются и добавляются новые (уже более 22!), и как участник, ты получаешь все обновления бесплатно и навсегда.</p>
+        
+        <div class="professions-list">
+            <div class="prof-item">Менеджер маркетплейсов (WB/Ozon)</div>
+            <div class="prof-item">Графический & Веб-дизайн</div>
+            <div class="prof-item">SMM & Reels-мейкер</div>
+            <div class="prof-item">Специалист по Нейросетям</div>
+            <div class="prof-item">Таргетолог & Реклама</div>
+            <div class="prof-item">Копирайтер & Сторисмейкер</div>
+        </div>
+    </div>
+
+    <h2 class="section-title" data-aos="fade-up">Тарифные планы доступа</h2>
+    <div class="grid tariff-grid" data-aos="fade-up">
+        <div class="img-card" onclick="openModal(this)"><img src="https://i.ibb.co/hJRCs985/IMG-20260223-224527-734.jpg"></div>
+        <div class="img-card" onclick="openModal(this)"><img src="https://i.ibb.co/SXZRWBtm/IMG-20260223-224527-204.jpg"></div>
+        <div class="img-card" onclick="openModal(this)"><img src="https://i.ibb.co/rGt3Rd37/IMG-20260223-224527-208.jpg"></div>
+        <div class="img-card" onclick="openModal(this)"><img src="https://i.ibb.co/1JZbVk2y/IMG-20260223-224527-355.jpg"></div>
+        <div class="img-card" onclick="openModal(this)"><img src="https://i.ibb.co/Lz1HnYsP/IMG-20260223-224527-812.jpg"></div>
+    </div>
+
+    <div class="glass-panel" data-aos="fade-up" data-tilt style="border: 3px dashed var(--accent); background: rgba(255, 240, 246, 0.8);">
+        <h2 class="section-title" style="margin-top: 0; background: var(--accent-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Тест-драйв бесплатно 🗝️</h2>
+        <p>Сомневаешься? Попробуй проект изнутри! Напиши мне "Хочу ключ", и я дам тебе временный бесплатный доступ к вводным урокам, чтобы ты оценила качество обучения.</p>
+        <div class="btn-wrapper" style="margin-bottom: 0;">
+            <a href="https://t.me/DianaK_InSTART?text=Хочу%20ключ" class="btn-main btn-accent">Забрать Гостевой Ключ</a>
+        </div>
+    </div>
+
+    <h2 class="section-title" data-aos="fade-up">Частые вопросы (FAQ)</h2>
+    <div class="faq-box container" data-aos="fade-up">
+        <div class="faq-item">
+            <button class="faq-trigger">У меня нет опыта, получится ли? <span>+</span></button>
+            <div class="faq-body">Обучение построено от А до Я. Мы ведем тебя за руку, начиная с основ. Главное — это твое желание учиться.</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-trigger">Нужен ли мощный компьютер? <span>+</span></button>
+            <div class="faq-body">Для 90% направлений достаточно обычного ноутбука или даже современного смартфона. Подробности в тарифах.</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-trigger">Как быстро я окуплю обучение? <span>+</span></button>
+            <div class="faq-body">Это зависит только от тебя. Многие ученики находят первых клиентов уже в процессе обучения на 2-й неделе.</div>
+        </div>
+    </div>
+
+    <h2 class="section-title" data-aos="fade-up">Результаты моих учеников</h2>
+    <div class="grid review-grid" data-aos="fade-up">
+        <div class="img-card" onclick="openModal(this)"><img src="https://i.ibb.co/Jg1F80z/IMG-20260223-224536-777.jpg"></div>
+        <div class="img-card" onclick="openModal(this)"><img src="https://i.ibb.co/gFZw9dQS/IMG-20260223-224536-642.jpg"></div>
+        <div class="img-card" onclick="openModal(this)"><img src="https://i.ibb.co/whchBtWW/IMG-20260223-224537-069.jpg"></div>
+        <div class="img-card" onclick="openModal(this)"><img src="https://i.ibb.co/278vQTfR/IMG-20260223-224537-115.jpg"></div>
+        <div class="img-card" onclick="openModal(this)"><img src="https://i.ibb.co/84m42vdK/IMG-20260223-224537-129.jpg"></div>
+        <div class="img-card" onclick="openModal(this)"><img src="https://i.ibb.co/wF7Qd6YT/IMG-20260223-224537-039.jpg"></div>
+    </div>
+
+    <div class="glass-panel cta-section" data-aos="zoom-in" data-tilt>
+        <h2 class="section-title" style="margin-top: 0;">Твоё будущее в твоих руках</h2>
+        <p>Не откладывай жизнь на потом. Ты — эксперт своего будущего. Напиши мне в Telegram, и мы начнем твой путь прямо сейчас.</p>
+        <div class="btn-wrapper" style="margin-bottom: 0;">
+            <a href="https://t.me/DianaK_InSTART" class="btn-main">Связаться со мной</a>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <div class="container">
+        <p><b>DIANA | Официальный куратор InSTART &copy; 2026</b><br>Все права защищены. Погрузись в светлую глубину онлайна.</p>
+    </div>
+</footer>
+
+<div id="modal" class="modal" onclick="closeModal()">
+    <img id="modalImg">
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
+<script>
+    // 1. Инициализация анимаций AOS
+    AOS.init({ duration: 1200, once: true });
+
+    // 2. Инициализация 3D наклона карточек (усиленный эффект для светлого)
+    VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+        max: 6, // Чуть больше наклон
+        speed: 500, // Чуть быстрее
+        glare: true, // Эффект блика сохраняем
+        "max-glare": 0.25, // Блик чуть ярче
+    });
+
+    // 3. FAQ Логика (Аккордеон)
+    document.querySelectorAll('.faq-trigger').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const item = btn.parentElement;
+            const body = item.querySelector('.faq-body');
+            const isOpen = item.classList.contains('active');
+            
+            // Закрыть все
+            document.querySelectorAll('.faq-item').forEach(i => {
+                i.classList.remove('active');
+                i.querySelector('.faq-body').style.display = 'none';
+            });
+
+            // Открыть текущий
+            if (!isOpen) {
+                item.classList.add('active');
+                body.style.display = 'block';
+            }
+        });
+    });
+
+    // 4. Модалка
+    function openModal(el) {
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modalImg');
+        modalImg.src = el.querySelector('img').src;
+        modal.classList.add('open');
+    }
+
+    function closeModal() {
+        document.getElementById('modal').classList.remove('open');
+    }
+</script>
+
+</body>
+</html>
